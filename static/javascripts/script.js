@@ -1,8 +1,10 @@
 var map;
 var markersArray = [];
+var dataString;
 
 // to create marker
 function createMarker(latLng, wifi_list) {
+	console.log(latLng);
 	var contentString =
 		'<div id="content">' +
 		'<div id="siteNotice">' +
@@ -46,6 +48,32 @@ function createMarker(latLng, wifi_list) {
 	markersArray.push(marker);
 }
 
+// gets wifi data from location
+function text_data(dataString) {
+	console.log(dataString);
+	var headers = {
+		'Content-Type': 'application/json',
+	};
+
+	var url = 'https://opyo6yseaa.execute-api.us-east-1.amazonaws.com/chan1/text'
+
+	$.ajax({
+		url: url,
+		type: 'POST',
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader('Content-Type', 'application/json');
+		},
+		headers: headers,
+		contentType: 'application/json',
+		data: dataString,
+		success: function (response) {
+			console.log(response);
+		},
+		error: function (response) {
+			console.log(response);
+		},
+	});
+}
 
 // gets wifi data from location
 function get_data(map) {
@@ -60,7 +88,7 @@ function get_data(map) {
 		var location = data[1]['location'];
 		$("#list").html('<div><table class="table"><thead><tr><th>Wifi Name</th><th>Strength</th></tr></thead><tbody>');
 
-		var dataString = `[`;
+		dataString = `[`;
 		var headers = {
 			'Content-Type': 'application/json',
 		};
@@ -72,9 +100,9 @@ function get_data(map) {
 			$("#list").append('<tr><td>' + wifi_name + '</td><td>' + wifi_strength + '</td></tr>')
 
 			if (i + 1 == wifi_list.length) {
-				dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "location": { "lat": ` + location['lat'] + `, "lon": ` + location['lng'] + `} }`;
+				dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "location": { "lat": ` + location['lat'].toFixed(3) + `, "lon": ` + location['lng'].toFixed(3) + `} }`;
 			} else {
-				dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "location": { "lat": ` + location['lat'] + `, "lon": ` + location['lng'] + `} },`;
+				dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "location": { "lat": ` + location['lat'].toFixed(3) + `, "lon": ` + location['lng'].toFixed(3) + `} },`;
 			}
 		}
 		
@@ -82,6 +110,8 @@ function get_data(map) {
 		console.log(dataString);
 
 		$("#list").append('</tbody></table></div>')
+
+		$("#list").append('<button type="button" id="search-button" onClick="return text_data(dataString);" class="btn btn-default nav-input">Text It To Me!</button>')
 
 		createMarker(location, wifi_list);
 
@@ -121,13 +151,13 @@ function initMap() {
 	var newYork = new google.maps.LatLng(40.7127, -74.0079);
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: newYork, // New York
-		zoom: 7,
+		zoom: 12,
 	});
 
-	// some examples: therealjamesxue, realDonaldTrump, justinbieber
-	get_data(map);
+	// get wifi hotspots around current location
+	// get_data(map);
 
-	// If user clicks on a point, find the tweets within radius through ES
+	// if user clicks on a point, find wifi hotspots around that location
 	google.maps.event.addListener(map, 'click', function (e) {
 
 		var radius = $('#radius').val();
@@ -139,49 +169,40 @@ function initMap() {
 			'Content-Type': 'application/json',
 		};
 
-		var dataString = `
+		var lat = e.latLng.lat().toFixed(2);;
+		var lng = e.latLng.lng().toFixed(2);;
+		console.log(lat);
+		console.log(lng);
+
+		dataString = `
         {
-					[
-						{
-							"name": bla, 
-							"strength": bla, 
-							"location": {
-								lat: bla, lon: bla
-							}
-						},
-						
-					]
+					"location": {
+						"lat": ` + lat + `, ` + 
+						`"lon": ` + lng + `
+					}, 
         }`;
 
-		var url =
-			'https://search-twittymap-7v4tlmzwpwmtyomcc7je3wiqa4.us-east-1.es.amazonaws.com/tweets/tweet/_search?pretty=true&size=100';
-		$.ajax({
-			url: url,
-			type: 'POST',
-			beforeSend: function (xhr) {
-				xhr.setRequestHeader('Content-Type', 'application/json');
-			},
-			headers: headers,
-			contentType: 'application/json',
-			data: dataString,
-			success: function (response) {
-				clearOverlays();
-				var tweets = response['hits']['hits'];
+		// var url = 'https://search-twittymap-7v4tlmzwpwmtyomcc7je3wiqa4.us-east-1.es.amazonaws.com/tweets/tweet/_search?pretty=true&size=100';
+		var url = '';
 
-				// loop through all of the tweets returned
-				for (var index in tweets) {
-					var location = tweets[index]['_source']['location'];
-					var tweet = tweets[index]['_source'];
 
-					// add marker if there's a location
-					if (location) {
-						geocodingGenerator(map, location, tweet);
-					}
-				}
-			},
-			error: function (response) {
-				console.log(response);
-			},
-		});
+
+		// $.ajax({
+		// 	url: url,
+		// 	type: 'GET',
+		// 	beforeSend: function (xhr) {
+		// 		xhr.setRequestHeader('Content-Type', 'application/json');
+		// 	},
+		// 	headers: headers,
+		// 	contentType: 'application/json',
+		// 	data: dataString,
+		// 	success: function (response) {
+		// 		clearOverlays();
+		// 		console.log(response);
+		// 	},
+		// 	error: function (response) {
+		// 		console.log(response);
+		// 	},
+		// });
 	});
 }

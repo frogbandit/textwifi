@@ -14,16 +14,22 @@ a {
 }
 
 #map {
-    width: 80%;
+    width: 75%;
     float: left;
     height: 800px;
+    margin-left: 1.5%;
 }
+
 #list {
     width: 20%;
     float: left;
     height: 800px;
+    margin-left: 1.5%;
 }
 
+#search-button {
+    margin-top: 5%;
+}
 
 .nav-input {
     /* margin: 8px auto; */
