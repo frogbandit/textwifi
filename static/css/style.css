@@ -1,0 +1,44 @@
+body {
+    /*padding: 50px;*/
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+#container {
+    height: 800px;
+    /* min-width: 310px; */
+    /* max-width: 800px; */
+}
+
+#map {
+    width: 80%;
+    float: left;
+    height: 800px;
+}
+#list {
+    width: 20%;
+    float: left;
+    height: 800px;
+}
+
+
+.nav-input {
+    /* margin: 8px auto; */
+    padding-right: 10px;
+}
+
+#search-form {
+    float: right;
+}
+
+/* .keyword {
+    padding-right: 120px;
+} */
+
+/*.dropdown-menu {
+    width: 300px !important;
+    height: 400px !important;
+}*/

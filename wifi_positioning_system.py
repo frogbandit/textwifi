@@ -12,7 +12,7 @@ Python Wi-Fi Positioning System - Wi-Fi geolocation script using the Google Maps
 @contact:    initbrain@gmail.com
 """
 
-from argparse import ArgumentParser, RawDescriptionHelpFormatter
+from argparse import ArgumentParser, RawDescriptionHelpFormatter, Namespace
 from commands import getoutput, getstatusoutput
 import simplejson
 import textwrap
@@ -56,7 +56,7 @@ def get_scriptpath():
     return fullpath
 
 
-def prettify_json(json_data):
+def prettify_json(args, json_data):
     if args.json_prettify:
         return '\n'.join([l.rstrip() for l in simplejson.dumps(json_data, sort_keys=True, indent=4*' ').splitlines()])
     else:
@@ -457,9 +457,13 @@ Contact: initbrain@gmail.com''' % (program_shortdesc, program_copyright)
     return parser.parse_args()
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
+def getWifi():
     # Parsing command line arguments
-    args = get_arguments()
+    # args = get_arguments()
+    # print(args)
+
+    args = Namespace(api_key='AIzaSyBwTk_cxvZh1NVMIpJJQluAthS3LCeCMCk', demo=False, json_prettify=False, map_type='HYBRID', verbose=True, with_overview=False)
 
     # Parameter for demo mode set to False by default via get_arguments()
     if args.demo:
@@ -499,7 +503,7 @@ if __name__ == "__main__":
     }
 
     if args.verbose:
-        print prettify_json(location_request)
+        print prettify_json(args, location_request)
 
     # Check for missing API_KEY
     if args.api_key:
@@ -522,7 +526,7 @@ if __name__ == "__main__":
             print "[+] Result"
 
         # Print JSON results
-        print prettify_json(api_result)
+        print prettify_json(args, api_result)
 
         if args.verbose:
             print "[+] Google Maps link"
@@ -533,3 +537,5 @@ if __name__ == "__main__":
             if args.verbose:
                 print "[+] Accuracy overview"
             create_overview(api_result, args.map_type)
+        
+        return [location_request, api_result]
