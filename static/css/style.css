@@ -1,0 +1,76 @@
+body {
+    /*padding: 50px;*/
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+#container {
+    height: 800px;
+}
+
+#container-login {
+    height: 100%;
+    /* padding-right: 40px;
+    margin-right: 40px; */
+    /* min-width: 310px; */
+    /* max-width: 800px; */
+}
+
+#map {
+    width: 75%;
+    float: left;
+    height: 800px;
+    margin-left: 1.5%;
+}
+td {
+    text-align: left;
+    width: 100%;
+}
+tr {
+    align: center;
+}
+
+#list {
+    width: 20%;
+    float: left;
+    height: 800px;
+    margin-left: 1.5%;
+}
+
+#search-button {
+    margin-top: 5%;
+}
+
+.nav li{
+    margin-top: 10%;
+}
+
+#search-form {
+    /* margin: 8px auto; */
+    margin-top: 0.7%;
+    /* padding-right: 10px; */
+}
+
+#search-form {
+    float: right;
+}
+
+/* .background-img{
+    width:400px;
+    max-height:20%;
+} */
+
+.col-sm-5 {
+    padding: 0px;
+    margin: 0px;
+}
+.background-img img {
+    width: 100%;
+    height: 100%;
+ }
+ .favicon-img img {
+    width: 50%
+ }
