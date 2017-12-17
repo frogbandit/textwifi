@@ -1,7 +1,7 @@
 var map;
 var markersArray = [];
 var dataString;
-var prev_infowindow =false; 
+var prev_infowindow = false;
 
 // to create marker
 function createMarker(latLng, wifi_list) {
@@ -51,14 +51,16 @@ function createMarker(latLng, wifi_list) {
 		}
 	}
 
-	$("#list").append('</tbody></table></div>')
-	$("#list").append('<button type="button" id="search-button" onClick="return text_data(dataString);" class="btn btn-default nav-input">Text It To Me!</button>')
-
 	dataString += `]`;
+
+	$("#list").append('</tbody></table></div>')
+	$("#list").append('<button type="button" id="search-button" onClick="return text_data(dataString);" class="btn btn-success nav-input">Text It To Me!</button>')
+
+	
 	console.log('hi');
 	console.log(dataString);
 
-	contentString += '<button type="button" id="search-button" onClick="return text_data(dataString);" class="btn btn-default nav-input">Text It To Me!</button>';
+	contentString += '<button type="button" id="search-button" onClick="return text_data(dataString);" class="btn btn-success nav-input">Text It To Me!</button>';
 
 	var infowindow = new google.maps.InfoWindow({
 		content: contentString,
@@ -81,7 +83,7 @@ function createMarker(latLng, wifi_list) {
 		// $("#list").html('<div><table class="table"><thead><tr><th>Wifi Name</th><th>Strength</th></tr></thead><tbody>');
 		// $("#list").append('<tr><td>' + wifi_name + '</td><td>' + wifi_strength + '</td></tr>')
 		// $("#list").append('</tbody></table></div>')
-		
+
 		// $("#list").append('<button type="button" id="search-button" onClick="return text_data(dataString);" class="btn btn-default nav-input">Text It To Me!</button>')
 	});
 
@@ -95,6 +97,10 @@ function text_data(dataString) {
 		'Content-Type': 'application/json',
 	};
 
+	var phoneNumber = getParameterByName('phone');
+	var phoneString = `{ "phone": ` + phoneNumber + `}`;
+	var newDataString = `{ "items": [` + dataString.replace(/[\[\]']+/g,'') + `, ` + phoneString + `]}`;
+	
 	var url = 'https://opyo6yseaa.execute-api.us-east-1.amazonaws.com/chan1/text'
 
 	$.ajax({
@@ -105,9 +111,12 @@ function text_data(dataString) {
 		},
 		headers: headers,
 		contentType: 'application/json',
-		data: dataString,
+		data: newDataString,
 		success: function (response) {
 			console.log(response);
+			if (response["success"]) {
+				$("#list").append('<div>The text message has been sent!</div>')
+			}
 		},
 		error: function (response) {
 			console.log(response);
@@ -259,4 +268,15 @@ function initMap() {
 			},
 		});
 	});
+}
+
+
+function getParameterByName(name, url) {
+	if (!url) url = window.location.href;
+	name = name.replace(/[\[\]]/g, "\\$&");
+	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+		results = regex.exec(url);
+	if (!results) return null;
+	if (!results[2]) return '';
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
 }

@@ -9,6 +9,12 @@ a {
 
 #container {
     height: 800px;
+}
+
+#container-login {
+    height: 100%;
+    /* padding-right: 40px;
+    margin-right: 40px; */
     /* min-width: 310px; */
     /* max-width: 800px; */
 }
@@ -38,20 +44,33 @@ tr {
     margin-top: 5%;
 }
 
-.nav-input {
+.nav li{
+    margin-top: 10%;
+}
+
+#search-form {
     /* margin: 8px auto; */
-    padding-right: 10px;
+    margin-top: 0.7%;
+    /* padding-right: 10px; */
 }
 
 #search-form {
     float: right;
 }
 
-/* .keyword {
-    padding-right: 120px;
+/* .background-img{
+    width:400px;
+    max-height:20%;
 } */
 
-/*.dropdown-menu {
-    width: 300px !important;
-    height: 400px !important;
-}*/
+.col-sm-5 {
+    padding: 0px;
+    margin: 0px;
+}
+.background-img img {
+    width: 100%;
+    height: 100%;
+ }
+ .favicon-img img {
+    width: 50%
+ }

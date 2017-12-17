@@ -1,10 +1,33 @@
 from twilio.rest import Client
+import json
 
 def lambda_handler(event, context):
 		print(event)
 		print(context)
-		# TODO implement
 		
+		print(event["body"])
+		print(type(event["body"]))
+		data_string = event["body"].encode('utf-8')
+		print(data_string)
+		data = json.loads(data_string)
+		print(data)
+		print(type(data))
+		
+		phone = "(949)554-5535"
+		wifi_string = "Here are your wifi hotspots!\n"
+
+		print(data["items"])
+		for i in range(0, len(data["items"])):
+			wifi = data["items"][i]
+			print(wifi)
+			if "name" in wifi:
+				wifi_name = wifi["name"]
+				wifi_string += (str(wifi_name) + "\n")
+			else:
+				print("phone changed")
+				phone = str(wifi["phone"])
+	
+
 		with open('twilio_auth.txt') as f:
 			lines = f.read().splitlines() 
 			
@@ -13,11 +36,9 @@ def lambda_handler(event, context):
 
 		client = Client(account_sid, auth_token)
 
-		phone = "(949)554-5535"
-
 		#message to client
 		message = client.messages.create(to=phone, from_="(509)774-2976",
-				body="Here are your wifi hotspots!")
+				body=wifi_string)
 				
 		response = {
 				"statusCode": 200,

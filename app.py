@@ -16,6 +16,12 @@ Loads webpage
 def index():
 	return render_template('index.html')
 
+'''
+Loads webpage
+'''
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	return render_template('login.html')
 
 '''
 Returns wifi around a given user's location

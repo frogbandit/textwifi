@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" context="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>TextWifi</title>
+	<meta name="description" content="Get your wifi texted">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+	<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	 crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="/static/javascripts/login.js"></script>
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<div class="favicon-img">
+					<a href='/login'>
+						<img src="/static/images/favicon.png" alt="">
+					</a>
+				</div>
+			</div>
+			<ul class="nav navbar-nav keyword">
+				<li>
+					<a href='/about'>About</a>
+				</li>
+			</ul>
+			<form id="search-form">
+
+			</form>
+
+		</div>
+
+	</nav>
+
+	<!-- Top content -->
+	<div class="top-content">
+
+		<!-- <div class="inner-bg"> -->
+		<div class="container">
+
+			<div class="row">
+				<div class="col-sm-8 col-sm-offset-2 text">
+					<h1>
+						<center>TextWifi: Accessible Wifi for All</center>
+					</h1>
+					<div class="description">
+						<br/>
+						<br/>
+						<!-- <p>
+								This is a free responsive
+								<strong>"login and register forms"</strong> template made with Bootstrap. Download it on
+								<a href="http://azmind.com" target="_blank">
+									<strong>AZMIND</strong>
+								</a>, customize and use it as you like!
+							</p> -->
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-5">
+
+					<div class="form-box">
+						<div class="form-top">
+							<div class="form-top-left">
+								<h3>Login</h3>
+								<p>Enter email and password to log on:</p>
+							</div>
+							<!-- <div class="form-top-right">
+									<i class="fa fa-key"></i>
+								</div> -->
+						</div>
+						<div class="form-bottom">
+							<form role="form" action="" method="post" class="login-form">
+								<div class="form-group">
+									<label class="sr-only" for="form-email-login">Email</label>
+									<input type="text" name="form-email-login" placeholder="Email..." class="form-email-login form-control" id="form-email-login">
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="form-password-login">Password</label>
+									<input type="password" name="form-password-login" placeholder="Password..." class="form-password-login form-control" id="form-password-login">
+								</div>
+								<button onClick="return login();" type="button" class="btn btn-primary">Sign in!</button>
+							</form>
+						</div>
+					</div>
+
+					<div class="form-box">
+						<div class="form-top">
+							<div class="form-top-left">
+								<h3>Sign up now</h3>
+								<p>Fill in the form below:</p>
+							</div>
+							<!-- <div class="form-top-right">
+										<i class="fa fa-pencil"></i>
+									</div> -->
+						</div>
+						<div class="form-bottom">
+							<form role="form" action="" method="post" class="registration-form">
+
+
+								<div class="form-group">
+									<label class="sr-only" for="form-email-signup">Email</label>
+									<input type="text" name="form-email" placeholder="Email..." class="form-email-signup form-control" id="form-email-signup">
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="form-password-signup">Password</label>
+									<input type="password" name="form-password-signup" placeholder="Password..." class="form-password-signup form-control" id="form-password-signup">
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="form-phone">Phone number</label>
+									<input type="text" name="form-phone" placeholder="i.e. 9495545535" class="form-phone form-control" id="form-phone">
+								</div>
+
+								<button onClick="return signup();" type="button" class="btn btn-success">Sign me up!</button>
+							</form>
+						</div>
+					</div>
+
+
+
+				</div>
+
+				<div class="col-sm-1 middle-border"></div>
+				<div class="col-sm-1"></div>
+
+				<div class="col-sm-5">
+					<div class="background-img">
+						<img src="/static/images/coffee.png" alt="">
+					</div>
+				</div>
+
+				<div class="col-sm-5">
+
+
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- </div> -->
+
+	<!-- Javascript -->
+	<script src="static/assets/js/jquery-1.11.1.min.js"></script>
+	<script src="static/assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="static/assets/js/scripts.js"></script>
+
+	<!--[if lt IE 10]>
+		<script src="assets/js/placeholder.js"></script>
+<![endif]-->
+</body>
+
+</html>
