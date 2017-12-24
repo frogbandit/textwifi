@@ -48,6 +48,11 @@ tr {
     margin-top: 10%;
 }
 
+.nav-checkbox {
+    margin-top: 1.35%;
+    margin-left: 5%;
+}
+
 #search-form {
     /* margin: 8px auto; */
     margin-top: 0.7%;

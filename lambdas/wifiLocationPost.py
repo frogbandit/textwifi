@@ -25,10 +25,12 @@ def lambda_handler(event, context):
 	print(response)
 	
 	for w in event:
+		print(w)
 		hotspot = {}
-		hotspot["name"] = w["name"]
-		hotspot["strength"] = str(w["strength"])
+		hotspot["name"] = str(w["name"])
+		hotspot["strength"] = int(w["strength"])
 		hotspot["location"] = w["location"]
+		hotspot["loc_type"] = str(w["loc_type"])
 		response = es.index(index='wifi', doc_type='hotspot', body=hotspot)
 		
 	return response

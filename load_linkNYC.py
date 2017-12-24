@@ -1,9 +1,11 @@
 import sys
 import csv
+import certifi
 from elasticsearch import Elasticsearch
 
 def main():
-	es = Elasticsearch(['https://search-textwifi-jhk6t4hsbrgwl4636zeyrabk74.us-east-1.es.amazonaws.com'])
+	es = Elasticsearch(['https://search-textwifi-jhk6t4hsbrgwl4636zeyrabk74.us-east-1.es.amazonaws.com'], use_ssl=True, ca_certs=certifi.where())
+
 
 	with open(sys.argv[1], 'rb') as f:
 		freader = csv.reader(f)

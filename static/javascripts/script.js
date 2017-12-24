@@ -2,6 +2,7 @@ var map;
 var markersArray = [];
 var dataString;
 var prev_infowindow = false;
+var checkedCategory = '';
 
 // to create marker
 function createMarker(latLng, wifi_list) {
@@ -45,9 +46,9 @@ function createMarker(latLng, wifi_list) {
 		$("#list").append('<tr><td>' + wifi_name + '</td><td>' + wifi_strength + '</td></tr>')
 
 		if (i + 1 == wifi_list.length) {
-			dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "location": { "lat": ` + (latLng['lon'] || latLng['lng']).toFixed(2) + `, "lon": ` + (latLng['lon'] || latLng['lng']).toFixed(2) + `} }`;
+			dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "loc_type": "user", "location": { "lat": ` + (Number(latLng['lat'])).toFixed(2) + `, "lon": ` + (Number(latLng['lon'] || latLng['lng'])).toFixed(2) + `} }`;
 		} else {
-			dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "location": { "lat": ` + (latLng['lon'] || latLng['lng']).toFixed(2) + `, "lon": ` + (latLng['lon'] || latLng['lng']).toFixed(2) + `} },`;
+			dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "loc_type": "user", "location": { "lat": ` + (Number(latLng['lat'])).toFixed(2) + `, "lon": ` + (Number(latLng['lon'] || latLng['lng'])).toFixed(2) + `} },`;
 		}
 	}
 
@@ -67,7 +68,7 @@ function createMarker(latLng, wifi_list) {
 	});
 
 	var marker = new google.maps.Marker({
-		position: { lat: latLng['lat'], lng: latLng['lon'] || latLng['lng'] },
+		position: { lat: Number(latLng['lat']), lng: Number(latLng['lon'] || latLng['lng']) },
 		map: map,
 	});
 
@@ -147,17 +148,17 @@ function get_data(map) {
 			var wifi_strength = wifi['signalStrength'];
 
 			if (i + 1 == wifi_list.length) {
-				dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "location": { "lat": ` + location['lat'].toFixed(2) + `, "lon": ` + location['lng'].toFixed(2) + `} }`;
+				dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "loc_type": "user", "location": { "lat": ` + location['lat'].toFixed(2) + `, "lon": ` + location['lng'].toFixed(2) + `} }`;
 			} else {
-				dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "location": { "lat": ` + location['lat'].toFixed(2) + `, "lon": ` + location['lng'].toFixed(2) + `} },`;
+				dataString += `{ "name": "` + wifi_name + `", "strength": ` + wifi_strength + `, "loc_type": "user", "location": { "lat": ` + location['lat'].toFixed(2) + `, "lon": ` + location['lng'].toFixed(2) + `} },`;
 			}
 		}
 
 		dataString += `]`;
-		console.log(dataString);
 
 		createMarker(location, wifi_list);
 
+		console.log(dataString);
 		// var url = 'https://search-twittymap-7v4tlmzwpwmtyomcc7je3wiqa4.us-east-1.es.amazonaws.com/tweets/tweet/_search?pretty=true&size=100';
 		var url = 'https://opyo6yseaa.execute-api.us-east-1.amazonaws.com/chan1/wifi'
 		$.ajax({
@@ -221,7 +222,27 @@ function initMap() {
 		console.log(lat);
 		console.log(lng);
 
-		getDataString = `{"location": {"lat": "` + lat + `", ` + `"lon": "` + lng + `"}}`;
+		// can query by type
+		// "loc_type":"user"
+		if ($('#user-checkbox').is(':checked')) {
+			checkedCategory = "user";
+		}
+
+		if ($('#coffee-checkbox').is(':checked')) {
+			checkedCategory = "coffee";
+		}
+
+		if ($('#linknyc-checkbox').is(':checked')) {
+			checkedCategory = "linknyc";
+		}
+
+		if (checkedCategory == ''){
+			checkedCategory = 'user';
+		}
+		console.log(checkedCategory);
+
+		getDataString = `{"loc_type": "` + checkedCategory + `", "location": {"lat": "` + lat + `", ` + `"lon": "` + lng + `"}}`;
+		
 
 		// var url = 'https://search-twittymap-7v4tlmzwpwmtyomcc7je3wiqa4.us-east-1.es.amazonaws.com/tweets/tweet/_search?pretty=true&size=100';
 		var getUrl = 'https://opyo6yseaa.execute-api.us-east-1.amazonaws.com/chan1/wifi'

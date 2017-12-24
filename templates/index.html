@@ -36,10 +36,18 @@
                     <a href='/about'>About</a>
                 </li>
             </ul>
+            <div class="navbar-header nav-checkbox">
+                    <label class="checkbox-inline"><input type="checkbox" id="user-checkbox" value="">User</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="coffee-checkbox" value="">Coffee</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="linknyc-checkbox" value="">LinkNYC</label>
+                  
+                </div>
             <form id="search-form">
                 <button type="button" id="search-button" onClick="location.href = '/login';" class="btn btn-default nav-input">Logout</button>
                 <button type="button" id="search-button" onClick="return get_data(map);" class="btn btn-primary nav-input">Get Wifi Around You</button>
             </form>
+
+            
 
         </div>
 
