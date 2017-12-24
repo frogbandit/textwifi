@@ -137,6 +137,8 @@ function get_data(map) {
 		var wifi_list = data[0]['wifiAccessPoints'];
 		var location = data[1]['location'];
 
+		map.setCenter(new google.maps.LatLng( location['lat'], location['lng'] ) );
+
 		dataString = `[`;
 		var headers = {
 			'Content-Type': 'application/json',

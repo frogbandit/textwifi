@@ -63,10 +63,10 @@ function signup() {
 		contentType: 'application/json',
 		data: dataString,
 		success: function (response) {
-			console.log(response);
-			var phoneResponse = response["Item"]["phone"]["S"]
-			console.log(phoneResponse)
-			window.location = '/?phone=' + phoneResponse;
+			// console.log(response);
+			// var phoneResponse = response["Item"]["phone"]["S"]
+			// console.log(phoneResponse)
+			window.location = '/?phone=' + formPhone;
 		},
 		error: function (response) {
 			console.log(response);
